@@ -137,19 +137,19 @@ app.layout = html.Div([
 @app.callback(
     Output('outputDemand', 'children'),
     Input('buttonPredict', 'n_clicks'),
-    State('checkBoxDummies', 'value'),
-    State('dropdownSeason2', 'value'),
-    State('windSpeedSlider', 'value'),
-    State('rainfallSlider', 'value'),
-    State('snowfallSlider', 'value'),
     State('hourSlider', 'value'),
     State('temperatureSlider', 'value'),
     State('humiditySlider', 'value'),
+    State('windSpeedSlider', 'value'),
+    State('dewPointTemperatureSlider', 'value'),
     State('solarRadiationSlider', 'value'),
-    State('dewPointTemperatureSlider', 'value')
+    State('rainfallSlider', 'value'),
+    State('snowfallSlider', 'value'),
+    State('checkBoxDummies', 'value'),
+    State('dropdownSeason2', 'value')
 )
-def updateDemand(n_clicks, checkBoxDummies, dropdownSeason2, temperatureSlider, humiditySlider, windSpeedSlider, rainfallSlider,
-                snowfallSlider, hourSlider, solarRadiationSlider, dewPointTemperatureSlider):
+def updateDemand(n_clicks, hourSlider, temperatureSlider, humiditySlider, windSpeedSlider,
+                 dewPointTemperatureSlider, solarRadiationSlider, rainfallSlider, snowfallSlider, checkBoxDummies, dropdownSeason2):
     demand = 0
     response = ''
     if n_clicks > 0:
@@ -184,7 +184,7 @@ def updateDemand(n_clicks, checkBoxDummies, dropdownSeason2, temperatureSlider, 
             else:
                 x.append(0)
                 x.append(0)
-                x.append(0)
+                x.append(0) 
 
             for i in range(len(coef)):
                 demand = demand + coef[i] * x[i]
@@ -215,22 +215,23 @@ def updateHistoricDemand(season):
 @app.callback(
     Output('outputPrice', 'children'),
     Input('buttonCalculatePrice', 'n_clicks'),
-    State('checkBoxDummies', 'value'),
-    State('dropdownSeason2', 'value'),
-    State('windSpeedSlider', 'value'),
-    State('rainfallSlider', 'value'),
-    State('snowfallSlider', 'value'),
     State('hourSlider', 'value'),
     State('temperatureSlider', 'value'),
     State('humiditySlider', 'value'),
-    State('solarRadiationSlider', 'value'),
+    State('windSpeedSlider', 'value'),
     State('dewPointTemperatureSlider', 'value'),
+    State('solarRadiationSlider', 'value'),
+    State('rainfallSlider', 'value'),
+    State('snowfallSlider', 'value'),
+    State('checkBoxDummies', 'value'),
+    State('dropdownSeason2', 'value'),
     State('fixedCost', 'value'),
     State('variableCost', 'value'),
     State('profitability', 'value')
 )
-def updatePrice(n_clicks, checkBoxDummies, dropdownSeason2, temperatureSlider, humiditySlider, windSpeedSlider, rainfallSlider,
-                snowfallSlider, hourSlider, solarRadiationSlider, dewPointTemperatureSlider, fixedCost, variableCost, profitability):
+def updatePrice(n_clicks, hourSlider, temperatureSlider, humiditySlider, windSpeedSlider,
+                 dewPointTemperatureSlider, solarRadiationSlider, rainfallSlider, snowfallSlider,
+                 checkBoxDummies, dropdownSeason2, fixedCost, variableCost, profitability):
     price = 0
     response = 'The sistem is on mantainance'
     if n_clicks > 0:
@@ -281,22 +282,23 @@ def updatePrice(n_clicks, checkBoxDummies, dropdownSeason2, temperatureSlider, h
 @app.callback(
     Output('costDistribution', 'figure'),
     Input('buttonCalculatePrice', 'n_clicks'),
-    State('checkBoxDummies', 'value'),
-    State('dropdownSeason2', 'value'),
-    State('windSpeedSlider', 'value'),
-    State('rainfallSlider', 'value'),
-    State('snowfallSlider', 'value'),
     State('hourSlider', 'value'),
     State('temperatureSlider', 'value'),
     State('humiditySlider', 'value'),
-    State('solarRadiationSlider', 'value'),
+    State('windSpeedSlider', 'value'),
     State('dewPointTemperatureSlider', 'value'),
+    State('solarRadiationSlider', 'value'),
+    State('rainfallSlider', 'value'),
+    State('snowfallSlider', 'value'),
+    State('checkBoxDummies', 'value'),
+    State('dropdownSeason2', 'value'),
     State('fixedCost', 'value'),
     State('variableCost', 'value'),
     State('profitability', 'value')
 )
-def updateCostDistribution(n_clicks, checkBoxDummies, dropdownSeason2, temperatureSlider, humiditySlider, windSpeedSlider, rainfallSlider,
-                snowfallSlider, hourSlider, solarRadiationSlider, dewPointTemperatureSlider, fixedCost, variableCost, profitability):
+def updateCostDistribution(n_clicks, hourSlider, temperatureSlider, humiditySlider, windSpeedSlider,
+                 dewPointTemperatureSlider, solarRadiationSlider, rainfallSlider, snowfallSlider,
+                 checkBoxDummies, dropdownSeason2, fixedCost, variableCost, profitability):
     if n_clicks > 0:
         demand = 0
         if 'Functioning Day' in checkBoxDummies:
