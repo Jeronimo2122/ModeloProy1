@@ -3,6 +3,7 @@ import numpy as np
 import sklearn.linear_model as lm
 from sklearn.model_selection import train_test_split
 import statsmodels.api as sm
+from scipy import stats
 
 def cargar_datos(datos):
     return pd.read_csv(datos)
@@ -16,4 +17,7 @@ def modeloRLS():
     modelo = lm.LinearRegression()
     modelo.fit(X_train, Y_train)
 
-    return modelo
+    residuals = Y_test - modelo.predict(X_test)
+    sigma = np.std(residuals)
+
+    return  modelo, sigma
