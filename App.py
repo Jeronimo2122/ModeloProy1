@@ -5,14 +5,39 @@ from dash.dependencies import Input, Output, State
 import plotly.express as px
 import pandas as pd
 import plotly.graph_objects as go
-
 import Modelo
+import os
+import pandas as pd
+import glob
 
 app = dash.Dash(__name__)
 server = app.server
 
-data = pd.read_csv('SeoulBikeDataClean.csv')
-originalData = pd.read_csv('SeoulBikeData_utf8.csv')
+# Definir los nombres de los archivos que estás buscando
+file_name_clean = 'SeoulBikeDataClean.csv'
+file_name_utf8 = 'SeoulBikeData_utf8.csv'
+
+# Buscar el archivo 'SeoulBikeDataClean.csv'
+files_found_clean = glob.glob(f'**/{file_name_clean}', recursive=True)
+
+# Buscar el archivo 'SeoulBikeData_utf8.csv'
+files_found_utf8 = glob.glob(f'**/{file_name_utf8}', recursive=True)
+
+# Cargar el archivo 'SeoulBikeDataClean.csv' si se encuentra
+if files_found_clean:
+    file_path_clean = files_found_clean[0]  # Usar el primer archivo encontrado
+    data = pd.read_csv(file_path_clean)
+    print(f'Archivo {file_name_clean} cargado desde: {file_path_clean}')
+else:
+    print(f'No se encontró el archivo {file_name_clean}. Verifica su ubicación.')
+
+# Cargar el archivo 'SeoulBikeData_utf8.csv' si se encuentra
+if files_found_utf8:
+    file_path_utf8 = files_found_utf8[0]  # Usar el primer archivo encontrado
+    originalData = pd.read_csv(file_path_utf8)
+    print(f'Archivo {file_name_utf8} cargado desde: {file_path_utf8}')
+else:
+    print(f'No se encontró el archivo {file_name_utf8}. Verifica su ubicación.')
 
 base_style = {
     'font-family': 'Arial, sans-serif',
