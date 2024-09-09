@@ -97,7 +97,7 @@ app.layout = html.Div([
         }), style={'text-align': 'center', 'margin': '20px 0'}),
 
         html.Div([
-            html.H2('Demand Predicted (CI):'),
+            html.H2('Demand Predicted:'),
             html.H1(id='outputDemand', style={'fontSize': '40px', 'color': '#28a745'})
         ], style={'text-align': 'center'}),
     ]),
@@ -123,13 +123,11 @@ app.layout = html.Div([
             'padding': '10px 20px', 'cursor': 'pointer', 'border-radius': '5px'
         }), style={'text-align': 'center', 'margin': '20px 0'}),
 
-        # Salida de precio sugerido
         html.Div([
             html.H2('Suggested Price per Bike per hour:', style={'font-weight': 'bold'}),
             html.H1(id='outputPrice', style={'fontSize': '40px', 'color': '#28a745'}),
         ], style={'text-align': 'center'}),
         
-        # Gráfico de distribución de costos
         html.Div([
             dcc.Graph(id='costDistribution')
         ], style={'width': '70%', 'margin': '0 auto', 'padding-top': '20px'}),
@@ -196,7 +194,7 @@ def updateDemand(n_clicks, checkBoxDummies, dropdownSeason2, temperatureSlider, 
             else:
                 inf = demand - 1.44 * Modelo.modeloRLS()[1]
                 sup = demand + 1.44 * Modelo.modeloRLS()[1]
-                response = f'({inf:.2f} , {sup:.2f})\nMedia: {demand:.2f}'
+                response = f'CI: ({inf:.2f} , {sup:.2f})\nMedia: {demand:.2f}'
         
     return response
 
